@@ -9,22 +9,34 @@ class Archivo: #objeto para leer el archivo (sólo vuelca en un diccionario a un
     def actualizar(self): #funcion que sirve para volver a extraer la info del archivo 
         try:
             with open(self.nombre, "r") as archivo:
-                self.base = json.load(archivo)
+                self.__base = json.load(archivo)
                 # Ahora 'base' contiene la lista de diccionarios
         except FileNotFoundError:
             print("Error en el archivo")
         
     def __init__(self,nombre="baseMemo.json") -> None:
-        self.nombre = nombre
-        self.base = 0
+        self.__nombre = nombre
         self.actualizar()
+
+    @property
+    def nombre(self):
+        return self.__nombre
+    
+    @property
+    def base(self):
+        return self.__base
         
     def extraer(self):
         self.actualizar()
         return self.base
     
+    def extraerCampo(self,indx):
+        self.actualizar()
+        return self.base[indx]
+
+    
     def volcar(self,newbase):      
-        self.base = newbase
+        self.__base = newbase
         try:
             with open(self.nombre, "w") as archivo:
                 json.dump(self.base, archivo)
@@ -35,14 +47,22 @@ class Archivo: #objeto para leer el archivo (sólo vuelca en un diccionario a un
             print(f"Ocurrió un error: {e}")
         """
         """
+class Estructura:
+    def __init__(self,mod = 0) -> None:
+        self._mod = 0 
+
 
 class Campo:
     def __init__(self,base) -> None:
-        self.base = base
+        self.__base = base
+
+    @property
+    def base(self):
+        return self.__base
         
     def aggClav(self,clav,ty):
         # se agrega la clave y se pide la nueva palabra 
-        self.base[ty][clav]= input("ingresa la palabra: ")
+        self.__base[ty][clav]= input("ingresa la palabra: ")
     
     def valClav(self,clave,ty):#validar las palabras
         if clave in self.base[ty].keys():
