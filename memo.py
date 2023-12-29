@@ -18,11 +18,11 @@ class Archivo: #objeto para leer el archivo (sólo vuelca en un diccionario a un
         self.__nombre = nombre
         self.actualizar()
 
-    @property
+    @property #getter de nombre
     def nombre(self):
         return self.__nombre
     
-    @property
+    @property #getter de base
     def base(self):
         return self.__base
         
@@ -93,7 +93,6 @@ if __name__ == "__main__":
     bufVer = "aq"
         
     print("Bienvenido al asistente de memorización de BLD 3x3")
-    bf=1
     bfl = [0] #esta es porque las listas se pasan por referencia, no por valor
     per = False
     while(buc(bfl) != "0"):
